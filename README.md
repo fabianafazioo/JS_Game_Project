@@ -1,4 +1,4 @@
-# Brew & Bloom
+# Brew & Bloom 🌺🌸☕️
 
 Cozy café time-management game (JS + DOM).
 
