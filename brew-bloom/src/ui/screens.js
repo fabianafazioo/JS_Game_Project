@@ -191,7 +191,7 @@ export function modals(){
         </div>
 
         <div class="slider-row">
-          <div><strong>SFX</strong> <span class="muted">(volume)</span></div>
+          <div><strong>Click Button</strong> <span class="muted">(volume)</span></div>
           <input type="range" id="sfxVol" min="0" max="1" step="0.01"/>
           <button class="btn btn-secondary" id="toggleSfx">On</button>
         </div>
@@ -207,7 +207,7 @@ export function modals(){
           <h3>Credits</h3>
           <button class="icon-btn" id="creditsClose">✕</button>
         </div>
-        <p>Designed with ❤️ by your team.</p>
+        <p>Designed with ❤️.</p>
         <button class="btn btn-primary w-full" id="creditsOk">Close</button>
       </div>
     </div>
