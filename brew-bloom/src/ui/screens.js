@@ -1,23 +1,30 @@
-export function menuScreen(){
+export function homeScreen(){
   return `
+    <div class="home-bg" id="homeBg"></div>
+
     <main class="screen" id="screenMenu">
       <div class="menu-wrap">
-        <div class="brand">
-          <div class="bloom">❀</div>
-          <h1>Brew & Bloom</h1>
-          <div class="bloom">❀</div>
-        </div>
-        <p class="subtitle muted">A Cozy Café Time Management Game</p>
+        <div class="home-grid">
+          <div>
+            <div class="brand">
+              <div class="bloom">❀</div>
+              <h1>Brew & Bloom</h1>
+              <div class="bloom">❀</div>
+            </div>
 
-        <div class="menu-icon">☕</div>
+            <p class="subtitle muted">Cozy Coffee Shop Game</p>
 
-        <button class="btn btn-primary btn-xl" id="btnPlay">▶ Play</button>
+            <div class="menu-col" style="margin-top:18px;">
+              <button class="btn btn-primary btn-xl btn-play" id="btnPlay">▶ Play</button>
+              <button class="btn btn-secondary btn-small" id="btnInventory">Inventory</button>
+              <button class="btn btn-secondary btn-small" id="btnSettings">Settings</button>
+              <button class="btn btn-secondary btn-small" id="btnCredits">Credits</button>
+            </div>
+          </div>
 
-        <div class="menu-row">
-          <button class="btn btn-secondary" id="btnShop">Shop</button>
-          <button class="btn btn-secondary" id="btnSettings">Settings</button>
-          <button class="btn btn-secondary" id="btnCredits">Credits</button>
-          <button class="btn btn-secondary" id="btnUIKit">UI Kit</button>
+          <div class="hero-cup-big">
+            <img src="assets/images/coffee-cup.gif" alt="Coffee Cup" />
+          </div>
         </div>
       </div>
     </main>
@@ -30,21 +37,21 @@ export function gameScreen(){
       <button class="icon-btn" id="btnBack" aria-label="Back">←</button>
 
       <div class="topbar-left">
-        <div class="muted">Day <span id="dayNum">3</span></div>
-        <div class="time" id="timeText">10:45 AM</div>
+        <div class="muted">Day <span id="dayNum">1</span></div>
+        <div class="time" id="timeText">Brew Time</div>
       </div>
 
       <div class="topbar-center">
         <div class="coin-pill">
           <span class="coin-icon">$</span>
-          <span id="coinsText">1250</span>
+          <span id="cashText">200.00</span>
         </div>
       </div>
 
       <div class="topbar-right">
         <div class="goal">
-          <div class="goal-label">Daily Goal: <span id="goalText">9/15</span></div>
-          <div class="bar"><div class="bar-fill" id="goalFill" style="width:60%"></div></div>
+          <div class="goal-label">Daily Goal: <span id="goalText">0/10</span></div>
+          <div class="bar"><div class="bar-fill" id="goalFill" style="width:0%"></div></div>
         </div>
       </div>
     </header>
@@ -54,56 +61,57 @@ export function gameScreen(){
 
         <section class="panel panel-soft" aria-label="Customer Queue">
           <div class="panel-title"><span class="bloom">❀</span>Customer Queue</div>
-          <div class="queue" id="queue"></div>
+          <div class="muted" id="queueText">Customers will appear and walk to tables.</div>
+          <div style="height:10px"></div>
+          <div id="queueList"></div>
         </section>
 
-        <section class="ticket-wrap" aria-label="Order Ticket">
-          <div class="ticket">
-            <div class="ticket-line">══ ORDER TICKET ══</div>
-            <div class="ticket-name" id="ticketName">Emma</div>
+        <section class="panel panel-soft">
+          <div class="panel-title"><span class="bloom">❀</span>Café Scene</div>
 
-            <div class="ticket-divider"></div>
-
-            <div class="ticket-items">
-              <div class="ticket-item">
-                <span class="check" id="coffeeCheck">○</span>
-                <span class="icon">☕</span>
-                <span class="label" id="coffeeLabel">Caramel Latte</span>
-              </div>
-              <div class="ticket-item">
-                <span class="check" id="pastryCheck">○</span>
-                <span class="icon">🥐</span>
-                <span class="label" id="pastryLabel">Croissant</span>
-              </div>
+          <div class="cafe-wrap">
+            <div class="cafe-toolbar">
+              <div class="pill">⏱ Order Timer: <span id="timerText">40s</span></div>
+              <div class="pill">🧍 Server: <span class="muted">Move with Arrow Keys</span></div>
+              <div class="pill">📌 Hint: <span class="muted">Walk near a customer</span></div>
             </div>
 
-            <div class="ticket-timer">⏱ <span id="ticketTimer">45s</span></div>
-            <div class="ticket-status" id="ticketStatus">In Progress</div>
+            <div class="canvas-area">
+              <canvas id="cafeCanvas" width="780" height="420"></canvas>
+            </div>
+
+            <div class="cafe-toolbar">
+              <button class="btn btn-secondary" id="btnTakeOrder">Take Order</button>
+              <button class="btn btn-primary" id="btnServe">Serve</button>
+              <button class="btn btn-secondary" id="btnOpenInventory">Inventory</button>
+            </div>
+
+            <div class="muted" style="padding:0 12px 12px;">
+              <span id="msgText"></span>
+            </div>
           </div>
         </section>
 
         <section class="right-col" aria-label="Actions">
-          <button class="btn btn-primary btn-xl" id="btnServe" disabled>SERVE! 🎉</button>
-
           <div class="panel panel-soft">
-            <button class="btn btn-dark w-full" id="btnUpgrades">Upgrades</button>
-            <button class="btn btn-dark w-full" id="btnInventory">Inventory</button>
+            <div class="panel-title">Quick Buttons</div>
+            <button class="btn btn-dark w-full" id="btnMoney">$ Money</button>
+            <button class="btn btn-dark w-full" id="btnQueue">Customer Queue</button>
+            <button class="btn btn-dark w-full" id="btnSettingsInGame">Settings</button>
           </div>
 
-          <div class="tip">💡 <strong>Tip:</strong> Perfect prep gives higher tips!</div>
+          <div class="tip">
+            💡 <strong>Gameplay:</strong> Buy ingredients in Inventory → take orders → serve fast.
+          </div>
         </section>
 
         <section class="panel panel-dark prep" aria-label="Prep Station">
-          <div class="prep-header">Prep Station</div>
-
-          <div class="prep-stage" id="prepStage">
-            <!-- UI swaps content here -->
+          <div class="prep-header">Ingredient Tray (Click to “prep”)</div>
+          <div class="prep-stage">
+            <div class="tray" id="tray"></div>
           </div>
-
-          <div class="prep-buttons">
-            <button class="btn btn-dark" id="btnPrepMenu">🍽 Menu</button>
-            <button class="btn btn-dark" id="btnCoffeeStation">☕ Coffee</button>
-            <button class="btn btn-dark" id="btnPastryStation">🥐 Pastry</button>
+          <div class="muted" style="text-align:center;">
+            Tip: Serving consumes ingredients. If you don’t have them, delivery fails.
           </div>
         </section>
 
@@ -114,17 +122,85 @@ export function gameScreen(){
 
 export function modals(){
   return `
+    <!-- Welcome -->
+    <div class="modal hidden" id="modalWelcome">
+      <div class="modal-card">
+        <div class="modal-head">
+          <h3>Welcome to Brew & Bloom ✨</h3>
+          <button class="icon-btn" id="welcomeClose">✕</button>
+        </div>
+
+        <div class="welcome">
+          <div class="cup">
+            <img src="assets/images/coffee-cup.gif" alt="Cup"/>
+          </div>
+          <div>
+            <h3>Hi Barista! ☕</h3>
+            <div class="muted">
+              Before serving coffee and pastries, you must buy ingredients in <strong>Inventory</strong>:
+              <strong>Milk, Coffee Beans, Sugar</strong>, and <strong>pre-made pastries</strong>.
+              <br/><br/>
+              You start with <strong>$200.00</strong> so you can stock up and start earning!
+            </div>
+          </div>
+        </div>
+
+        <div style="height:12px"></div>
+        <button class="btn btn-primary w-full" id="welcomeGoInventory">Go to Inventory</button>
+        <div style="height:10px"></div>
+        <button class="btn btn-secondary w-full" id="welcomeOk">Got it!</button>
+      </div>
+    </div>
+
+    <!-- Inventory -->
+    <div class="modal hidden" id="modalInventory">
+      <div class="modal-card">
+        <div class="modal-head">
+          <h3>Inventory</h3>
+          <button class="icon-btn" id="invClose">✕</button>
+        </div>
+
+        <div class="muted" style="margin-bottom:10px;">
+          Buy ingredients and pastries (pre-made) to fulfill orders.
+        </div>
+
+        <div class="slider-row">
+          <div><strong>Cash</strong></div>
+          <div class="coin-pill"><span class="coin-icon">$</span><span id="invCash">200.00</span></div>
+        </div>
+
+        <div id="invGrid"></div>
+
+        <div style="height:12px"></div>
+        <button class="btn btn-secondary w-full" id="invDone">Done</button>
+      </div>
+    </div>
+
+    <!-- Settings -->
     <div class="modal hidden" id="modalSettings">
       <div class="modal-card">
         <div class="modal-head">
           <h3>Settings</h3>
           <button class="icon-btn" id="settingsClose">✕</button>
         </div>
-        <p class="muted">Add toggles here later (music/sfx).</p>
+
+        <div class="slider-row">
+          <div><strong>Music</strong> <span class="muted">(volume)</span></div>
+          <input type="range" id="musicVol" min="0" max="1" step="0.01"/>
+          <button class="btn btn-secondary" id="toggleMusic">On</button>
+        </div>
+
+        <div class="slider-row">
+          <div><strong>SFX</strong> <span class="muted">(volume)</span></div>
+          <input type="range" id="sfxVol" min="0" max="1" step="0.01"/>
+          <button class="btn btn-secondary" id="toggleSfx">On</button>
+        </div>
+
         <button class="btn btn-primary w-full" id="settingsOk">Close</button>
       </div>
     </div>
 
+    <!-- Credits -->
     <div class="modal hidden" id="modalCredits">
       <div class="modal-card">
         <div class="modal-head">
@@ -133,17 +209,6 @@ export function modals(){
         </div>
         <p>Designed with ❤️ by your team.</p>
         <button class="btn btn-primary w-full" id="creditsOk">Close</button>
-      </div>
-    </div>
-
-    <div class="modal hidden" id="modalUIKit">
-      <div class="modal-card">
-        <div class="modal-head">
-          <h3>UI Kit</h3>
-          <button class="icon-btn" id="uiClose">✕</button>
-        </div>
-        <p class="muted">Use this to show components later.</p>
-        <button class="btn btn-primary w-full" id="uiOk">Close</button>
       </div>
     </div>
   `;

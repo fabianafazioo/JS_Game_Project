@@ -1,49 +1,69 @@
-import { SCREENS, PREP_VIEW } from "./constants.js";
-import { pick } from "./utils.js";
-import { CUSTOMER_NAMES, TABLE_IDS } from "./data.js";
+import { STORAGE_KEYS, SCREENS } from "./constants.js";
+import { INVENTORY_ITEMS } from "./data.js";
 
 export function createInitialState(){
+  const audio = loadAudioSettings();
+  const inv = loadInventory();
+
   return {
     screen: SCREENS.MENU,
 
-    day: 3,
-    timeText: "10:45 AM",
-    coins: 1250,
+    cash: inv.cash ?? 200.00,
+    inventory: inv.inventory ?? defaultInventory(),
 
-    goalDone: 9,
-    goalTotal: 15,
+    // audio settings
+    audio: {
+      musicVolume: audio.musicVolume ?? 0.35,
+      sfxVolume: audio.sfxVolume ?? 0.55,
+      musicEnabled: audio.musicEnabled ?? true,
+      sfxEnabled: audio.sfxEnabled ?? true,
+    },
 
-    // UI: what the prep station is currently showing
-    prepView: PREP_VIEW.MENU,
-    selectedMenuItem: null, // {type:'coffee'|'pastry', itemId:'latte'...}
+    // gameplay UI state
+    day: 1,
+    goalDone: 0,
+    goalTotal: 10,
 
-    // active order (demo)
-    order: makeNewOrder(),
+    // simple order/timer
+    orderSeconds: 40,
+    orderActive: false,
+    message: "",
 
-    // demo queue
-    queue: [
-      { name: "Emma", icons: "☕ 🥐", patience: 0.78 },
-      { name: "Alex", icons: "🧋", patience: 0.45 },
-      { name: "Sofia", icons: "☕ ☕", patience: 0.62 },
-      { name: "James", icons: "🥐 ☕", patience: 0.18 }
+    // top-down cafe simulation (UI prototype)
+    server: { x: 120, y: 240, speed: 160 },
+    customers: [],   // populated by systems
+    tables: [
+      { id:1, x: 540, y: 110 },
+      { id:2, x: 580, y: 310 },
+      { id:3, x: 420, y: 300 },
     ],
-
-    // mini-game internal state (systems updates these)
-    coffeePour: { fill: 0, pouring: false },
-    pastryQTE:  { seq: ["W","A","S","D"], index: 0, timer: 6.0, active: false, canBake:false },
-    delivery:   { active:false, x:12, y:45, speed:0.9 },
-
-    // tick helpers
-    _accum1s: 0,
   };
 }
 
-export function makeNewOrder(){
-  return {
-    customer: pick(CUSTOMER_NAMES),
-    coffee: { name: "Caramel Latte", done: false },
-    pastry: { name: "Croissant", done: false },
-    secondsLeft: 45,
-    tableTarget: pick(TABLE_IDS),
-  };
+function defaultInventory(){
+  // start with 0, user must buy
+  const inv = {};
+  INVENTORY_ITEMS.forEach(i => inv[i.id] = 0);
+  return inv;
+}
+
+function loadAudioSettings(){
+  try { return JSON.parse(localStorage.getItem(STORAGE_KEYS.AUDIO) || "{}"); }
+  catch { return {}; }
+}
+
+function loadInventory(){
+  try { return JSON.parse(localStorage.getItem(STORAGE_KEYS.INVENTORY) || "{}"); }
+  catch { return {}; }
+}
+
+export function saveAudioSettings(state){
+  localStorage.setItem(STORAGE_KEYS.AUDIO, JSON.stringify(state.audio));
+}
+
+export function saveInventory(state){
+  localStorage.setItem(STORAGE_KEYS.INVENTORY, JSON.stringify({
+    cash: state.cash,
+    inventory: state.inventory
+  }));
 }

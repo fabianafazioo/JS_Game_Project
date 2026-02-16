@@ -1,20 +1,9 @@
 export const SCREENS = {
   MENU: "menu",
   GAME: "game",
-  SHOP: "shop",
 };
 
-export const PREP_VIEW = {
-  MENU: "prepMenu",
-  COFFEE: "coffee",
-  PASTRY: "pastry",
-  DELIVERY: "delivery",
-};
-
-export const KEYS = {
-  UP: "w",
-  DOWN: "s",
-  LEFT: "a",
-  RIGHT: "d",
-  INTERACT: "e",
+export const STORAGE_KEYS = {
+  AUDIO: "bb_audio_settings_v1",
+  INVENTORY: "bb_inventory_v1",
 };
